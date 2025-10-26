@@ -1,0 +1,16 @@
+description="Adds a new fact to the KnowledgeBase and creates a corresponding test."
+
+prompt = """
+Your task is to add a new technical fact to the KnowledgeBase. The fact is '{{args}}'.
+
+1.  **Parse the Fact:** The fact should be in a 'key:value' format. Parse it to get the key and value. The value might need to be converted to the correct type (e.g., int, bool).
+2.  **Update KnowledgeBase:**
+    *   Read the `src/knowledge_base.py` file.
+    *   Locate the `_specs` dictionary within the `KnowledgeBase` class.
+    *   Add the new key-value pair to the `_specs` dictionary.
+    *   Write the modified content back to `src/knowledge_base.py`.
+3.  **Add a New Test:**
+    *   Read the `tests/test_knowledge_base.py` file.
+    *   Add a new test function, for example `test_get_new_fact`, that retrieves the new fact from the `KnowledgeBase` and asserts that its value is correct.
+    *   Write the modified content back to `tests/test_knowledge_base.py`.
+"""

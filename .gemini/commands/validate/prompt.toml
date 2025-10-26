@@ -1,0 +1,11 @@
+description="Validates a Veo 3 prompt file against the VeoPrompt data class."
+
+prompt = """
+Your task is to validate a Veo 3 prompt file. The file path is '{{args}}'.
+
+1.  **Read the File:** Read the content of the file at the provided path.
+2.  **Parse and Validate:** The file should contain a JSON object representing a VeoPrompt. Parse the JSON and use the `src.prompt_structure.VeoPrompt` pydantic model to validate its structure.
+3.  **Report Results:**
+    *   If the validation is successful, report that the prompt is valid.
+    *   If there is a `ValidationError`, report the specific errors in a clear, readable format.
+"""

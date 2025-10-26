@@ -1,0 +1,10 @@
+#.gemini/commands/new/component.toml
+description="Scaffolds a new application component with a corresponding test file, following project conventions."
+
+prompt = """
+Your task is to scaffold a new component named '{{args}}'. You must perform the following actions sequentially and await confirmation for each file creation:
+
+1.  **Create the Source File:** Create a new file at 'src/{{args | snake_case}}.py'. This file should contain a basic Python class named '{{args | pascal_case}}' with an empty '__init__' method and a 'pass' statement. Include a basic module-level docstring.
+
+2.  **Create the Test File:** Create a new file at 'tests/test_{{args | snake_case}}.py'. This file should import 'pytest' and the new '{{args | pascal_case}}' class from 'src.{{args | snake_case}}'. It should contain a test class named 'Test{{args | pascal_case}}' with a single placeholder test method 'test_initialization' that creates an instance of the class and asserts that it is not None.
+"""
