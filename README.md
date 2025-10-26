@@ -35,33 +35,39 @@ This implementation was built following a rigorous, AI-driven, Test-First Develo
     pip install -r requirements.txt
     ```
 
-## Usage
+## Example Usage
 
-The main entry point for the application is the `CoreOrchestrator` class. The included `run_app.py` script provides a clear example of how to use it.
+To run the application, execute the `run_app.py` script:
 
-To run the example from your terminal:
 ```sh
 python3 run_app.py
 ```
 
-This will execute the following logic from `run_app.py`:
+This script takes a high-level idea as input and generates a structured JSON prompt as output.
+
+### Example Input
+
+The `run_app.py` script is pre-configured with the following input:
 
 ```python
-# run_app.py
-from src.main import CoreOrchestrator
-
-# 1. Initialize the main orchestrator
-orchestrator = CoreOrchestrator()
-
-# 2. Define your high-level idea
 user_idea = "A futuristic detective exploring a rainy, neon-lit city."
-
-# 3. Process the idea to generate the final prompt
-final_prompt = orchestrator.process_request(user_idea)
-
-# 4. Print the structured output
-print("Generated VeoPrompt:")
-print(final_prompt.model_dump_json(indent=2))
 ```
 
-This will output a JSON object containing the structured 7-component prompt, ready for use.
+### Example Output
+
+Running the script will produce the following JSON output:
+
+```json
+{
+  "subject": "A generic subject",
+  "action": "A generic action",
+  "scene": "A generic scene",
+  "style": "cinematic",
+  "dialogue": "",
+  "sounds": "",
+  "technical": [
+    "1080p"
+  ],
+  "negative_prompt": "low quality, blurry, jpeg artifacts"
+}
+```

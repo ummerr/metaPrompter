@@ -31,12 +31,10 @@ class GenerationEngine:
         Returns:
             VeoPrompt: A populated, but not yet finalized, VeoPrompt object.
         """
-        # This is a placeholder implementation. A real implementation would use the
-        # analyzed_request to generate a more specific prompt.
         return VeoPrompt(
-            subject="A generic subject",
-            action="A generic action",
-            scene="A generic scene",
+            subject=analyzed_request.get("subject", "A generic subject"),
+            action=analyzed_request.get("action", "A generic action"),
+            scene=analyzed_request.get("scene", "A generic scene"),
             style="cinematic",
             dialogue="",
             sounds="",

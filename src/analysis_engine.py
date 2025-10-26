@@ -10,8 +10,7 @@ class AnalysisEngine:
     def analyze_request(self, user_input: str) -> Dict[str, Any]:
         """Analyzes the raw user input string.
 
-        This method will eventually use NLP techniques to extract structured data.
-        For the initial implementation, it will perform a basic keyword analysis.
+        This method performs a basic keyword analysis by splitting the string.
 
         Args:
             user_input (str): The raw user input string from the end-user.
@@ -19,5 +18,8 @@ class AnalysisEngine:
         Returns:
             Dict[str, Any]: A structured dictionary representing the analyzed request.
         """
-        # Placeholder implementation returns the raw text in a dictionary.
-        return {"raw_text": user_input, "intent": "unknown"}
+        words = user_input.split()
+        subject = " ".join(words[0:2]) if len(words) > 1 else user_input
+        action = " ".join(words[2:4]) if len(words) > 3 else ""
+        scene = " ".join(words[4:]) if len(words) > 4 else ""
+        return {"subject": subject, "action": action, "scene": scene}
