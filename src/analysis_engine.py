@@ -1,25 +1,34 @@
 from typing import Dict, Any
+import spacy
 
 class AnalysisEngine:
-    """Parses the user's high-level text input to identify key entities.
+    """Parses the user's high-level text input to identify key entities."""
 
-    This engine is responsible for the initial interpretation of the user's
-    creative intent.
-    """
+    def __init__(self):
+        """Initializes the AnalysisEngine and loads the spaCy model."""
+        try:
+            self.nlp = spacy.load("en_core_web_sm")
+        except OSError:
+            print("Downloading 'en_core_web_sm' model...")
+            spacy.cli.download("en_core_web_sm")
+            self.nlp = spacy.load("en_core_web_sm")
 
     def analyze_request(self, user_input: str) -> Dict[str, Any]:
-        """Analyzes the raw user input string.
-
-        This method performs a basic keyword analysis by splitting the string.
-
-        Args:
-            user_input (str): The raw user input string from the end-user.
-
-        Returns:
-            Dict[str, Any]: A structured dictionary representing the analyzed request.
-        """
-        words = user_input.split()
-        subject = " ".join(words[0:2]) if len(words) > 1 else user_input
-        action = " ".join(words[2:4]) if len(words) > 3 else ""
-        scene = " ".join(words[4:]) if len(words) > 4 else ""
-        return {"subject": subject, "action": action, "scene": scene}
+        """Analyzes the raw user input string for multiple scenes using NLP."""
+        scene_inputs = user_input.strip().split('\n')
+        scenes = []
+        for scene_input in scene_inputs:
+            if not scene_input.strip():
+                continue
+            
+            doc = self.nlp(scene_input)
+            
+            subjects = [chunk.text for chunk in doc.noun_chunks]
+            subject = subjects[0] if subjects else ""
+            
+            action = ""
+            if subject:
+                action = scene_input.replace(subject, "", 1).strip()
+            
+            scenes.append({"subject": subject, "action": action, "scene": ""})
+        return {"scenes": scenes}

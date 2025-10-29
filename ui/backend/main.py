@@ -32,4 +32,4 @@ async def generate_prompt(user_input: UserInput):
     Accepts user text input and returns a generated VeoPrompt.
     """
     prompt = orchestrator.process_request(user_input.text)
-    return prompt
+    return orchestrator.output_formatter.to_dict(prompt)

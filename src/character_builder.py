@@ -1,22 +1,22 @@
 from typing import Dict, Any
 
 class CharacterBuilder:
-    """A specialized tool to create detailed character descriptions.
-
-    This class uses a template to generate rich character details that can be
-    used by the Generation Engine.
-    """
+    """A specialized tool to create detailed character descriptions."""
 
     def create_character(self, high_level_description: Dict[str, Any]) -> str:
-        """Creates a detailed, structured character string from a high-level description.
+        """Creates a detailed, structured character string from a high-level description."""
+        character_template = {
+            "name": high_level_description.get("name", "Unnamed Character"),
+            "age": high_level_description.get("age", "Ageless"),
+            "appearance": high_level_description.get("appearance", "An average-looking person"),
+            "personality": high_level_description.get("personality", "A mysterious and intriguing personality"),
+            "backstory": high_level_description.get("backstory", "A character with a hidden past"),
+        }
 
-        Args:
-            high_level_description (Dict[str, Any]): A dictionary containing key
-                attributes of the character, such as name, age, or role.
-
-        Returns:
-            str: A detailed, structured character string for use in the prompt.
-        """
-        name = high_level_description.get("name", "Unnamed Character")
-        description = high_level_description.get("description", "")
-        return f"A character named {name}. {description}".strip()
+        return (
+            f"Character Name: {character_template['name']}\n"
+            f"Age: {character_template['age']}\n"
+            f"Appearance: {character_template['appearance']}\n"
+            f"Personality: {character_template['personality']}\n"
+            f"Backstory: {character_template['backstory']}"
+        )

@@ -4,21 +4,22 @@ class QualityValidator:
     """Validates the generated VeoPrompt against rules and generates negative prompts."""
 
     def validate_and_finalize(self, prompt: VeoPrompt) -> VeoPrompt:
-        """Validates and finalizes a VeoPrompt object.
+        """Validates and finalizes a VeoPrompt object, checking each scene and generating negative prompts."""
+        if not prompt.scenes:
+            raise ValueError("Prompt must contain at least one scene.")
 
-        This method applies a set of quality rules to the generated prompt and
-        appends a negative prompt to improve the final output quality.
+        for i, scene in enumerate(prompt.scenes):
+            if len(scene.subject.strip()) == 0:
+                raise ValueError(f"Subject cannot be empty in scene {i+1}.")
 
-        Args:
-            prompt (VeoPrompt): The VeoPrompt object to validate.
+        # Generate context-aware negative prompts
+        negative_prompts = [prompt.negative_prompt]
+        if "photorealistic" in prompt.style.lower():
+            negative_prompts.append("cartoon, anime, 3d render")
+        
+        if any("person" in scene.subject.lower() for scene in prompt.scenes):
+            negative_prompts.append("deformed, ugly, disfigured")
 
-        Returns:
-            VeoPrompt: The validated and finalized VeoPrompt object.
-        """
-        # This is a placeholder implementation. A real implementation would have
-        # more sophisticated validation logic.
-        if len(prompt.subject.strip()) == 0:
-            raise ValueError("Subject cannot be empty.")
+        prompt.negative_prompt = ", ".join(filter(None, negative_prompts))
 
-        prompt.negative_prompt = "low quality, blurry, jpeg artifacts"
         return prompt

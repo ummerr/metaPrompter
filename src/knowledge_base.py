@@ -6,19 +6,20 @@ class KnowledgeBase:
     This class is implemented as a singleton to ensure a single, consistent
     source of truth for technical data throughout the application.
     """
+import json
+import os
+
+class KnowledgeBase:
+    """Loads and provides access to Veo 3 technical specifications."""
     _instance = None
     _specs: Dict[str, Any]
 
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(KnowledgeBase, cls).__new__(cls)
-            # In a real implementation, this would load from a configuration file.
-            cls._instance._specs = {
-                "max_duration_seconds": 120,
-                "resolutions": ["1080p", "4K", "8K"],
-                "aspect_ratios": ["16:9", "1:1", "9:16", "4:3"],
-                "max_dialogue_chars": 500
-            }
+            config_path = os.path.join(os.path.dirname(__file__), '..', 'config.json')
+            with open(config_path, 'r') as f:
+                cls._instance._specs = json.load(f)
         return cls._instance
 
     def get_max_duration(self) -> int:

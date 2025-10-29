@@ -53,13 +53,26 @@ button:hover {
 }
 
 #result-container {
-    display: none;
+    margin-top: 20px;
 }
 
-#prompt-output {
+.scene-card {
     background-color: #f9f9f9;
-    padding: 15px;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+#sounds-container {
+    margin-top: 20px;
+}
+
+.scene-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.scene-card p {
+    margin-bottom: 5px;
 }

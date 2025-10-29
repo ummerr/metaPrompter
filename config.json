@@ -1,0 +1,6 @@
+{
+    "max_duration_seconds": 120,
+    "resolutions": ["1080p", "4K", "8K"],
+    "aspect_ratios": ["16:9", "1:1", "9:16", "4:3"],
+    "max_dialogue_chars": 500
+}
