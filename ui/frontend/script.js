@@ -3,9 +3,11 @@ document.getElementById('prompt-form').addEventListener('submit', async function
 
     const userInput = document.getElementById('user-input').value;
     const resultContainer = document.getElementById('result-container');
+    const soundsContainer = document.getElementById('sounds-container');
 
     // Clear previous results
     resultContainer.innerHTML = '';
+    soundsContainer.innerHTML = '';
 
     try {
         const response = await fetch('http://127.0.0.1:8000/generate-prompt/', {
@@ -66,7 +68,8 @@ document.getElementById('prompt-form').addEventListener('submit', async function
             sounds.textContent = 'Sounds:';
             const soundsP = document.createElement('p');
             soundsP.textContent = data.sounds;
-            resultContainer.appendChild(sounds);
+            soundsContainer.appendChild(sounds);
+            soundsContainer.appendChild(soundsP);
 
         } else {
             resultContainer.textContent = 'No scenes were generated.';
