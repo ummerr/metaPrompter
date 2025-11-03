@@ -17,6 +17,7 @@ class OutputFormatter:
             output.append(f"Action: {scene.action}")
             output.append(f"Scene: {scene.scene}")
             output.append(f"Composition: {scene.composition}")
+            output.append(f"Consistent Universe: {scene.consistent_universe}")
             output.append("")
         
         output.append("--- Prompt Details ---")

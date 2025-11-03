@@ -7,6 +7,7 @@ class Scene(BaseModel):
     action: str = Field(description="The action being performed by the subject.")
     scene: str = Field(description="The description of the scene and environment.")
     composition: str = Field(description="Description of the camera composition and relative spacing.")
+    consistent_universe: str = Field(description="Descriptive tags that define the core visual style of the world.")
 
 class VeoPrompt(BaseModel):
     """Defines the validated data structure for the final Veo 3 prompt output.

@@ -10,7 +10,8 @@ def test_veo_prompt_successful_creation():
             subject="a happy robot",
             action="walking through a sunlit forest",
             scene="A lush, green forest with tall trees and sunlight filtering through the canopy.",
-            composition="close-up shot"
+            composition="close-up shot",
+            consistent_universe="test universe"
         )
     ]
     prompt = VeoPrompt(

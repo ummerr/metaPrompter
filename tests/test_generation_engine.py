@@ -17,7 +17,8 @@ def test_generate_prompt_returns_veo_prompt_object():
     kb = KnowledgeBase()
     cb = CharacterBuilder()
     engine = GenerationEngine(knowledge_base=kb, character_builder=cb)
-    analyzed_request = {"scenes": [{"subject": "a robot", "action": "exploring", "scene": "a cave"}]}
+    analyzed_request = {"scenes": [{"subject": "a robot", "action": "exploring", "scene": "a cave", "consistent_universe": "test universe"}]}
+    
     prompt = engine.generate_prompt(analyzed_request)
     assert isinstance(prompt, VeoPrompt)
     assert isinstance(prompt.scenes, list)
@@ -28,10 +29,11 @@ def test_generate_prompt_creates_scenes_from_request():
     cb = CharacterBuilder()
     engine = GenerationEngine(knowledge_base=kb, character_builder=cb)
     analyzed_request = {
-        "scenes": [
-            {"subject": "A happy robot", "action": "walking through", "scene": "a sunlit forest"},
-            {"subject": "A sad robot", "action": "sitting by", "scene": "a lonely moon"}
-        ]
+                    "scenes": [
+                        {"subject": "A happy robot", "action": "walking through", "scene": "a sunlit forest", "consistent_universe": "test universe"},
+                        {"subject": "A sad robot", "action": "sitting by", "scene": "a lonely moon", "consistent_universe": "test universe"}
+                    ]
+        
     }
     prompt = engine.generate_prompt(analyzed_request)
     assert len(prompt.scenes) == 2
@@ -44,18 +46,22 @@ def test_generate_prompt_uses_knowledge_base():
     kb = KnowledgeBase()
     cb = CharacterBuilder()
     engine = GenerationEngine(knowledge_base=kb, character_builder=cb)
-    analyzed_request = {"scenes": [{"subject": "a robot", "action": "exploring", "scene": "a cave"}]}
+    analyzed_request = {"scenes": [{"subject": "a robot", "action": "exploring", "scene": "a cave", "consistent_universe": "test universe"}]}
     prompt = engine.generate_prompt(analyzed_request)
     assert prompt.technical[0] == kb.get_supported_resolutions()[0]
 
-def test_generate_prompt_calls_character_builder():
-    """Tests that the generate_prompt method calls the character builder when appropriate."""
+def test_generate_prompt_uses_character_store():
+    """Tests that the generate_prompt method uses the character store."""
     kb = KnowledgeBase()
     cb = CharacterBuilder()
     engine = GenerationEngine(knowledge_base=kb, character_builder=cb)
-    analyzed_request = {"scenes": [{"subject": "A mysterious character", "action": "walks", "scene": "a dark alley"}]}
+    character = cb.create_character({"name": "Sir Gideon", "appearance": "A brave knight"})
+    analyzed_request = {
+        "scenes": [{"subject": "Sir Gideon", "action": "fighting a dragon", "scene": "a volcano", "consistent_universe": "test universe"}],
+        "characters": {"Sir Gideon": character}
+    }
     prompt = engine.generate_prompt(analyzed_request)
-    assert "Character Name: A mysterious character" in prompt.scenes[0].subject
+    assert "A brave knight" in prompt.scenes[0].subject
 
 def test_generate_prompt_generates_composition():
     """Tests that the generate_prompt method generates a composition for each scene."""
@@ -72,6 +78,6 @@ def test_generate_prompt_generates_sounds():
     kb = KnowledgeBase()
     cb = CharacterBuilder()
     engine = GenerationEngine(knowledge_base=kb, character_builder=cb)
-    analyzed_request = {"scenes": [{"subject": "a cat", "action": "playing", "scene": "a garden"}]}
+    analyzed_request = {"scenes": [{"subject": "a cat", "action": "playing", "scene": "a garden", "consistent_universe": "test universe"}]}
     prompt = engine.generate_prompt(analyzed_request)
     assert "cat purring, meowing" in prompt.sounds

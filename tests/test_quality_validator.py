@@ -12,7 +12,7 @@ def test_validate_and_finalize_returns_veo_prompt_object():
     """Tests that the validate_and_finalize method returns an instance of VeoPrompt."""
     validator = QualityValidator()
     prompt = VeoPrompt(
-        scenes=[Scene(subject="a test subject", action="a test action", scene="a test scene", composition="close-up")],
+        scenes=[Scene(subject="a test subject", action="a test action", scene="a test scene", composition="close-up", consistent_universe="test universe")],
         style="cinematic",
         dialogue="",
         sounds="",
@@ -25,7 +25,7 @@ def test_validate_and_finalize_raises_error_for_empty_subject():
     """Tests that an error is raised if a scene has an empty subject."""
     validator = QualityValidator()
     prompt = VeoPrompt(
-        scenes=[Scene(subject="", action="a test action", scene="a test scene", composition="close-up")],
+        scenes=[Scene(subject="", action="a test action", scene="a test scene", composition="close-up", consistent_universe="test universe")],
         style="cinematic",
         dialogue="",
         sounds="",
@@ -51,7 +51,7 @@ def test_validate_and_finalize_adds_photorealistic_negatives():
     """Tests that photorealistic negative prompts are added for the correct style."""
     validator = QualityValidator()
     prompt = VeoPrompt(
-        scenes=[Scene(subject="a test subject", action="a test action", scene="a test scene", composition="close-up")],
+        scenes=[Scene(subject="a test subject", action="a test action", scene="a test scene", composition="close-up", consistent_universe="test universe")],
         style="photorealistic",
         dialogue="",
         sounds="",
@@ -64,7 +64,7 @@ def test_validate_and_finalize_adds_person_negatives():
     """Tests that person-related negative prompts are added for the correct subject."""
     validator = QualityValidator()
     prompt = VeoPrompt(
-        scenes=[Scene(subject="a person walking", action="a test action", scene="a test scene", composition="close-up")],
+        scenes=[Scene(subject="a person walking", action="a test action", scene="a test scene", composition="close-up", consistent_universe="test universe")],
         style="cinematic",
         dialogue="",
         sounds="",
