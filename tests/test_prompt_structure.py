@@ -11,14 +11,14 @@ def test_veo_prompt_successful_creation():
             action="walking through a sunlit forest",
             scene="A lush, green forest with tall trees and sunlight filtering through the canopy.",
             composition="close-up shot",
-            consistent_universe="test universe"
+            consistent_universe="test universe",
+            sounds="birds chirping, leaves rustling"
         )
     ]
     prompt = VeoPrompt(
         scenes=scenes,
         style="cinematic, photorealistic",
         dialogue="",
-        sounds="birds chirping, leaves rustling",
         technical=["4K", "16:9"]
     )
     assert prompt.scenes == scenes
@@ -30,6 +30,5 @@ def test_veo_prompt_missing_required_field_raises_error():
         VeoPrompt(
             style="documentary",
             dialogue="",
-            sounds="wind blowing",
             technical=["1080p"]
         )
